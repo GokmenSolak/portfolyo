@@ -1,8 +1,8 @@
 @echo off
 echo Site Guncelleniyor...
 git add .
-git commit -m "Otomatik guncelleme"
-git push -u origin main
+git commit -m "Guncelleme"
+git push -u origin master
 echo.
-echo ISLEM TAMAM! Site Guncellendi.
+echo ISLEM TAMAM!
 pause
