@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- 1. GÖRSEL AYARLAR --- */
+        /* --- 1. CORE VISUALS --- */
         :root {
             --bg-dark: #050505;
             --glass-border: rgba(255, 255, 255, 0.1);
@@ -26,7 +26,6 @@
             font-family: 'Outfit', sans-serif;
             color: var(--text-main);
             overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent; /* Mobilde tıklama gölgesini kaldırır */
         }
 
         /* Mouse Takip Eden Işık */
@@ -50,7 +49,7 @@
 
         /* --- 2. HERO SECTION --- */
         .hero {
-            min-height: 95vh; /* Mobilde içerik taşarsa esneyecek şekilde media query'de ayarlandı */
+            min-height: 95vh;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             text-align: center;
@@ -82,10 +81,9 @@
             background: linear-gradient(to right, #fff, #94a3b8);
             -webkit-background-clip: text; color: transparent;
             letter-spacing: 2px; animation: fadeUp 1s ease forwards; opacity: 0;
-            line-height: 1.1; /* Mobilde satır aralığını düzeltir */
         }
 
-        /* --- ROZETLER --- */
+        /* --- BUTONLAŞTIRILMIŞ ROZETLER --- */
         .subtitle {
             margin-top: 25px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;
             animation: fadeUp 1s ease 0.3s forwards; opacity: 0;
@@ -98,7 +96,7 @@
             font-size: 0.9rem; font-weight: 500;
             display: flex; align-items: center; gap: 8px;
             cursor: pointer; transition: 0.3s all ease;
-            user-select: none; z-index: 10;
+            user-select: none;
         }
 
         .badge:hover {
@@ -107,6 +105,7 @@
             box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
         }
 
+        /* Aktif Olduğunda (Tıklanınca) */
         .badge.active {
             background: var(--neon-blue);
             color: #000;
@@ -114,6 +113,7 @@
             box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
             font-weight: 700;
         }
+        /* Campus için özel renk (Mor) */
         .badge.purple-mode.active {
             background: var(--neon-purple);
             border-color: var(--neon-purple);
@@ -121,42 +121,32 @@
             color: #fff;
         }
 
-        /* --- BIO ALANI --- */
+        /* --- DİNAMİK BIO ALANI --- */
         .bio-text {
-            max-width: 800px; 
-            min-height: 200px;
-            color: #d1d5db; 
-            margin-top: 40px; 
-            font-size: 1.1rem; 
-            line-height: 1.8;
+            max-width: 800px; min-height: 200px; /* Sabit yükseklik zıplamayı önler */
+            color: #d1d5db; margin-top: 40px; font-size: 1.1rem; line-height: 1.8;
+            animation: fadeUp 1s ease 0.6s forwards; opacity: 0;
             background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
-            padding: 30px; 
-            border-radius: 15px;
+            padding: 30px; border-radius: 15px;
             border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(5px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            opacity: 0; animation: fadeUp 1s ease 0.6s forwards;
+            transition: 0.3s;
         }
         
-        .fade-in { animation: textFade 0.4s ease forwards; }
-        @keyframes textFade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        /* Metin değişirken efekt */
+        .fade-in-text { animation: textFade 0.5s ease forwards; }
+        @keyframes textFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .bio-text strong { color: var(--neon-blue); font-weight: 500; }
-        .bio-text h3 { color: var(--neon-blue); margin-top: 0; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; }
-        .bio-text p { margin-bottom: 15px; }
 
-        /* --- KARTLAR & GRID --- */
+        /* --- DİĞER BÖLÜMLER (GRID & CARDS) --- */
         .section-title {
             font-family: 'Rajdhani', sans-serif; font-size: 2.5rem; margin: 100px 0 50px;
             text-align: center; color: var(--text-main); text-transform: uppercase; letter-spacing: 3px;
         }
         .section-title span { color: var(--neon-purple); }
 
-        .grid-container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 25px; 
-        }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
 
         .glass-card {
             background: var(--glass-bg); border: 1px solid var(--glass-border);
@@ -178,6 +168,7 @@
         .card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; transform: translateZ(20px); }
         .card-desc { color: var(--text-muted); line-height: 1.6; transform: translateZ(10px); font-size: 0.95rem; }
 
+        /* Tech Tags */
         .tech-category { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
         .tech-category:last-child { border-bottom: none; }
         .cat-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; display: block; }
@@ -198,35 +189,7 @@
         .social-link:hover { color: var(--neon-blue); transform: scale(1.2); text-shadow: 0 0 15px var(--neon-blue); }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- MOBİL UYUMLULUK AYARLARI (RESPONSIVE) --- */
-        @media (max-width: 992px) {
-            .grid-container { grid-template-columns: repeat(2, 1fr); } /* Tablette 2'li */
-        }
-
-        @media (max-width: 768px) {
-            .container { padding: 15px; }
-            .hero { padding-top: 60px; min-height: auto; padding-bottom: 50px; } /* Mobilde çok uzun boşlukları önle */
-            
-            .profile-container { width: 150px; height: 150px; }
-            h1 { font-size: 2.2rem; margin-top: 10px; }
-            
-            .subtitle { gap: 10px; }
-            .badge { padding: 8px 15px; font-size: 0.8rem; width: 100%; justify-content: center; } /* Mobilde rozetler tam genişlik */
-            
-            .bio-text { padding: 20px; font-size: 1rem; margin-top: 30px; min-height: auto; }
-            
-            .section-title { font-size: 2rem; margin: 60px 0 30px; }
-            .grid-container { grid-template-columns: 1fr; gap: 20px; } /* Telefonda tekli */
-            
-            .glass-card { padding: 20px; }
-            .card-icon { font-size: 2rem; margin-bottom: 15px; }
-            .card-title { font-size: 1.3rem; }
-            
-            .cta-section { padding: 40px 20px; margin: 60px 0; }
-            .neon-btn { padding: 12px 30px; width: 100%; box-sizing: border-box; } /* Buton tam genişlik */
-            .social-link { margin: 0 10px; font-size: 1.5rem; }
-        }
+        @media (max-width: 768px) { h1 { font-size: 2.2rem; } .subtitle { flex-direction: column; gap: 10px; } .bio-text { padding: 20px; font-size: 1rem; } }
     </style>
 </head>
 <body>
@@ -256,8 +219,17 @@
                 </div>
             </div>
 
-            <div class="bio-text" id="bio-container">
-                </div>
+            <div class="bio-text" id="bio-content">
+                <p>
+                    Karadeniz Teknik Üniversitesi Yönetim Bilişim Sistemleri bölümünde, teknolojinin iş dünyası ve güvenlik süreçleriyle kesiştiği noktada uzmanlaşıyorum.
+                </p>
+                <p style="margin-top: 15px;">
+                    Temel odağım, <strong>'AI for Security' (Güvenlik için Yapay Zeka)</strong> vizyonudur. Geleneksel siber güvenlik yöntemlerinin ötesine geçerek, yapay zeka algoritmalarıyla güçlendirilmiş, proaktif ve otonom savunma sistemleri geliştirmeyi hedefliyorum.
+                </p>
+                <p style="margin-top: 15px;">
+                    Aşağıdaki başlıklara tıklayarak ilgi alanlarımın detaylarını görebilirsiniz.
+                </p>
+            </div>
         </section>
 
         <h2 class="section-title">Deneyim & <span>Yolculuk</span></h2>
@@ -352,65 +324,42 @@
     </div>
 
     <script>
-        // --- İÇERİK VERİSİ ---
-        const bioContent = {
-            default: `
-                <p>Karadeniz Teknik Üniversitesi Yönetim Bilişim Sistemleri bölümünde, teknolojinin iş dünyası ve güvenlik süreçleriyle kesiştiği noktada uzmanlaşıyorum.</p>
-                <p>Temel odağım, <strong>'AI for Security' (Güvenlik için Yapay Zeka)</strong> vizyonudur. Geleneksel siber güvenlik yöntemlerinin ötesine geçerek, yapay zeka algoritmalarıyla güçlendirilmiş, proaktif ve otonom savunma sistemleri geliştirmeyi hedefliyorum.</p>
-                <p>Hem ofansif (Red Team) hem de defansif (Blue Team) yetkinliklerimi derinleştirerek, dijital dünyadaki karmaşık tehditlere karşı akılcı çözümler üreten bir siber güvenlik mimarı olmak istiyorum.</p>
-            `,
+        // --- 1. ETKİLEŞİMLİ BIO (YENİ) ---
+        const bioData = {
             cyber: `
-                <h3>Hedef: Proaktif Savunma</h3>
+                <h3 class="blue-text" style="margin-top:0">Hedef: Proaktif Savunma</h3>
                 <p>Siber güvenlikte sadece saldırıları beklemek yerine, <strong>ofansif (Red Team)</strong> yetkinliklerle açıkları önceden tespit etmeye odaklanıyorum.</p>
-                <p>Siber Vatan eğitimleri ve CTF deneyimlerimle, ağ güvenliği, sızma testleri ve zararlı yazılım analizi konularında teknik derinliğimi artırıyorum. Amacım, karmaşık siber tehditleri nötralize eden güvenli mimariler kurmaktır.</p>
+                <p style="margin-top:15px">Siber Vatan eğitimleri ve CTF deneyimlerimle, ağ güvenliği, sızma testleri ve zararlı yazılım analizi konularında teknik derinliğimi artırıyorum. Amacım, karmaşık siber tehditleri nötralize eden güvenli mimariler kurmaktır.</p>
             `,
             ai: `
-                <h3>Hedef: AI Destekli Güvenlik</h3>
+                <h3 class="blue-text" style="margin-top:0">Hedef: AI Destekli Güvenlik</h3>
                 <p>Yapay zeka, siber savunmanın geleceğidir. Python ve Veri Bilimi araçlarını (Pandas, Scikit-learn) kullanarak güvenlik loglarını analiz eden ve anomali tespiti yapan modeller geliştiriyorum.</p>
-                <p>Hedefim, <strong>AI for Security</strong> vizyonuyla, insan müdahalesine gerek kalmadan tehditleri saniyeler içinde algılayan otonom sistemler üretmektir.</p>
+                <p style="margin-top:15px">Hedefim, <strong>AI for Security</strong> vizyonuyla, insan müdahalesine gerek kalmadan tehditleri saniyeler içinde algılayan otonom sistemler üretmektir.</p>
             `,
             campus: `
-                <h3 style="color:var(--neon-purple)">Hedef: Güçlü Ağ & Liderlik</h3>
+                <h3 class="purple-text" style="margin-top:0">Hedef: Güçlü Ağ & Liderlik</h3>
                 <p>Teknik bilginin, doğru iletişimle değere dönüştüğüne inanıyorum. <strong>Etkin Kampüs Temsilcisi</strong> olarak, öğrenci toplulukları ile sektör profesyonelleri arasında köprü kuruyorum.</p>
-                <p>Etkinlik yönetimi, ekip koordinasyonu ve networking becerilerimle, hem kendimi hem de içinde bulunduğum ekosistemi geliştiriyorum.</p>
+                <p style="margin-top:15px">Etkinlik yönetimi, ekip koordinasyonu ve networking becerilerimle, hem kendimi hem de içinde bulunduğum ekosistemi geliştiriyorum.</p>
             `
         };
 
-        const container = document.getElementById('bio-container');
+        const bioContainer = document.getElementById('bio-content');
         const badges = document.querySelectorAll('.badge');
 
-        // --- GÜNCELLEME FONKSİYONU ---
         function updateBio(type, element) {
-            // Tıklamayı yayılmasını engelle
-            if (event) event.stopPropagation();
-
-            // Aktif sınıfını güncelle
+            // Aktif sınıfını diğerlerinden kaldır
             badges.forEach(b => b.classList.remove('active'));
-            if(element) element.classList.add('active');
+            // Tıklanana ekle
+            element.classList.add('active');
 
-            // İçeriği değiştir ve yumuşak geçiş yap
-            container.innerHTML = bioContent[type];
-            
-            // Animasyonu tetiklemek için class'ı kaldırıp ekle
-            container.classList.remove('fade-in');
-            void container.offsetWidth; // Reflow
-            container.classList.add('fade-in');
+            // İçeriği değiştir ve animasyon ekle
+            bioContainer.innerHTML = bioData[type];
+            bioContainer.classList.remove('fade-in-text');
+            void bioContainer.offsetWidth; // Trigger Reflow (Animasyonu resetlemek için)
+            bioContainer.classList.add('fade-in-text');
         }
 
-        // Sayfa Yüklenince
-        window.onload = () => {
-            updateBio('default', null);
-        };
-
-        // Boşluğa tıklayınca resetle
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.badge')) {
-                badges.forEach(b => b.classList.remove('active'));
-                updateBio('default', null);
-            }
-        });
-
-        // --- GÖRSEL EFEKTLER (MOUSE & CANVAS) ---
+        // --- 2. GÖRSEL EFEKTLER (MEVCUT) ---
         const spotlight = document.querySelector('.spotlight');
         document.addEventListener('mousemove', (e) => {
             spotlight.style.setProperty('--x', e.clientX + 'px');
@@ -418,23 +367,21 @@
         });
 
         const cards = document.querySelectorAll('.tilt-card');
-        
-        // Tilt efekti sadece masaüstünde çalışsın (Telefonda titreme yapmasın)
-        if (window.matchMedia("(min-width: 768px)").matches) {
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = ((e.clientY - rect.top - centerY) / centerY) * -10;
-                    const rotateY = ((e.clientX - rect.left - centerX) / centerX) * 10;
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-                });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-                });
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
             });
-        }
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
 
         const canvas = document.getElementById('network-canvas');
         const ctx = canvas.getContext('2d');
@@ -442,24 +389,38 @@
         function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
         window.addEventListener('resize', resize);
         resize();
+
         const particles = [];
-        for(let i=0; i<70; i++) particles.push({
-            x: Math.random()*width, y: Math.random()*height,
-            vx: (Math.random()-0.5)*0.5, vy: (Math.random()-0.5)*0.5,
-            size: Math.random()*2+1
-        });
+        const particleCount = 70;
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width; this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5; this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 242, 255, 0.4)'; ctx.fill();
+            }
+        }
+        for(let i=0; i<particleCount; i++) particles.push(new Particle());
         function animate() {
             ctx.clearRect(0, 0, width, height);
             particles.forEach((p, index) => {
-                p.x+=p.vx; p.y+=p.vy;
-                if(p.x<0||p.x>width) p.vx*=-1; if(p.y<0||p.y>height) p.vy*=-1;
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
-                ctx.fillStyle='rgba(0, 242, 255, 0.4)'; ctx.fill();
-                for(let j=index; j<particles.length; j++){
-                    let p2=particles[j], dx=p.x-p2.x, dy=p.y-p2.y, d=Math.sqrt(dx*dx+dy*dy);
-                    if(d<150){
-                        ctx.beginPath(); ctx.strokeStyle=`rgba(0, 242, 255, ${0.1-d/1500})`;
-                        ctx.lineWidth=1; ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                p.update(); p.draw();
+                for (let j = index; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x; const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 242, 255, ${0.1 - dist/1500})`;
+                        ctx.lineWidth = 1; ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
                     }
                 }
             });
